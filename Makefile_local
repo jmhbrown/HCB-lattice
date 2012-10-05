@@ -1,0 +1,23 @@
+######################  HEAD DEF  #################################
+CC= mpiicpc
+MPIFLAG= -DMYMPI
+OFLAG= -O3
+LIBS= -L$(LIBRARY_PATH) -lmkl_intel_lp64 -lmkl_intel_thread \
+      -lmkl_lapack -lmkl_core -liomp5 -lpthread
+OBJ= NoiseCorrelation_LinuxQP.o Correlations_Linux.o Greens_Linux.o
+TARGET= noise2.1.out
+
+$(TARGET): $(OBJ)
+	$(CC) -O3 -o $(TARGET) $(OBJ) $(MPIFLAG) $(LIBS)
+
+%.o: %.cpp stdafx.h
+	$(CC) $(OFLAG) -c $< $(MPIFLAG) $(LIBS)
+
+.PHONY: clean
+clean:
+	rm $(OBJ)
+.PHONNY: run
+run:
+	mpirun -np 2 ./$(TARGET)
+	
+#######################  END HEAD  #################################
