@@ -71,22 +71,22 @@ int tstep;	// step size
 /*** Function Definitions ***/
 
 // State Initi - constructs an idenity matrix of size Nsite * Nsite
-void StateInit(int * F) {
+void StateInit(int ** F, int Nsite) {
 	for(int a=0; a<Nsite; a++) {
 		for(int b=0; b<Nsite; b++) {
-			F[a*Nsite+b]=0;
-		}
-
-		for(int i=0; i<Nsite; i++) {
-			F[i*Nsite+i]=1;
+			if(a==b) {
+				F[a][b] = 1;
+			}
+			else {
+				F[a][b] = 0;
+			}
 		}
 	}
 }
-
 // Initializes N*N matrix B by copying A to B
-void StateCopy(int * A, int * B, int col, int N) {
-	for(int i=0; i<N; i++) {
-		B[col*N+i]=A[col*N+i];
+void StateCopy(int ** A, int ** B, int Nsite) {
+	for(int i=0; i<Nsite; i++) {
+		B[i]=A[i];
 	}
 }
 
@@ -128,8 +128,7 @@ void KineticHamiltonian(double * H, int * F, char Flag) {
 	// Note that the Kinetic Hamiltonian only has off-diagonal elements
 	for(j=0; j<Nsite; j++) {
 		for(int k=0; k<Nsite-1; k++) {
-			StateCopy(F[
-	
+// WORK HERE	
 	}
 		
 }
