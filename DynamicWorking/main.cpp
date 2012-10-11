@@ -38,8 +38,9 @@ int main(int argc, char ** argv)
 
     //Memory allocation
 	F=(int **)malloc(Nsite*sizeof(int *));
-	for(int i=0; i<Nsite; i++)
-	*(F+i)=(int *)malloc(Nsite*sizeof(int));
+	for(int i=0; i<Nsite; i++) {
+		*(F+i)=(int *)malloc(Nsite*sizeof(int));
+	}
 	Ham0=(double *)malloc(Nsite*Nsite*sizeof(double));
 	HamT=(double *)malloc(Nsite*Nsite*sizeof(double));
 	rho=(cdouble *)malloc(Nsite*Nsite*sizeof(cdouble));

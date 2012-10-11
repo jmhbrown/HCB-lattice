@@ -29,6 +29,25 @@ using namespace std;
 
 /*** Variable and Function Declarations ***/
 
+// Function Declarations
+
+void KineticHamiltonian(double *, int **, char);
+void PotentialHamiltonian(double *, int **, char);
+void StateInit(int **);
+void StateCopy(int *, int *, int);
+int StateId(int **, int *);
+
+extern void StateEvoWithTime();
+extern void MomDen(cdouble *, cdouble *);
+extern void NoiseCorr(cdouble *, cdouble *, cdouble *);
+
+void output(cdouble *, cdouble *, cdouble *);
+void EnergChk(double *, double*, double *, cdouble *, cdouble *);
+void ChkOutput(double, double, double, double);
+
+void MPI_initialize(int, char **);
+void MPI_finalize();
+
 // Lattice constants
 int Nsite;	// number of lattice sites
 int Nfermion;	// number of particles
@@ -46,7 +65,10 @@ int itime;	// initial time. I assume this should be zero.
 int ftime;	// final time
 int tstep;	// step size
 
-/*** Functions ***/
+
+
+
+/*** Function Definitions ***/
 
 // State Initi - constructs an idenity matrix of size Nsite * Nsite
 void StateInit(int * F) {
@@ -61,13 +83,53 @@ void StateInit(int * F) {
 	}
 }
 
+// Initializes N*N matrix B by copying A to B
+void StateCopy(int * A, int * B, int col, int N) {
+	for(int i=0; i<N; i++) {
+		B[col*N+i]=A[col*N+i];
+	}
+}
+
+// assigns a state's ID and returns it. This ID becomes the state's column index in the hamiltonian
+int StateId(int ** F, int * temp) {
+	bool Flag;
+	int ID;
+	for(ID=0; ID<Nsite; ID++) {
+		Flag=true;
+		for(int i=0; i<Nsite; i++) {
+			if(F[ID*Nsite+i]!=temp[i]) {
+				Flag=false;
+				break;
+			}
+		}
+		if(Flag) break;
+	}
+	return ID;
+}
+
+
+// Generates the Kinetic Portion of the Hamiltonian
+// 
 void KineticHamiltonian(double * H, int * F, char Flag) {
 
 	int * temp;
 	temp=(int *)malloc(Nsite*sizeof(int));
-	int i, int j;
+	int i;
+       	int j;
 	double A;	// sign flag
 
 	// fill H with zeros
-  // NOT DONE!!! WORK HERE. 	
+	for(int a=0; a<Nsite; a++) {
+		for(int b=0; b<Nsite; b++) {
+			H[a*Nsite+b]=0;
+		}
+	}
+
+	// Note that the Kinetic Hamiltonian only has off-diagonal elements
+	for(j=0; j<Nsite; j++) {
+		for(int k=0; k<Nsite-1; k++) {
+			StateCopy(F[
+	
+	}
+		
 }

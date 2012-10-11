@@ -13,7 +13,9 @@ extern MPI::Status istatus;
 #include <iostream>
 #include <cstdlib>
 #include <complex>
+#include <vector>
 
+typedef std::vector<vector<double> > matrix;
 typedef std::complex<double> cdouble;
 #define MKL_Complex16 cdouble
 
