@@ -19,7 +19,7 @@ cdouble MomDistFunc(int, cdouble *);
 void DenMx(cdouble *);
 
 
-// Density Matrix -> See eq. (6.13)
+// Density Matrix -> See eq. (6.13) from Rigol 2004
 void DenMx(cdouble * rho)		//calculate and store <b+b-> in rho[]
 {
 	//int flag=0;
