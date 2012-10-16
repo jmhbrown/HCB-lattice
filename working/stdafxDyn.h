@@ -15,7 +15,12 @@ extern MPI::Status istatus;
 #include <complex>
 #include <vector>
 
-typedef std::vector<vector<double> > matrix;
+#include "StateInit.h"
+#include "StateCopy.h"
+#include "StateID.h"
+
+
+
 typedef std::complex<double> cdouble;
 #define MKL_Complex16 cdouble
 

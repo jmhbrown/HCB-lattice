@@ -8,8 +8,8 @@ Author: 	Jennifer Brown
  		jmb347@georgetown.edu
 
 
-NOTES: I'm changing my matrices from double arrays to single arrays. 
-
+NOTES: Kai used a combination of double and single arrays to describe matrices.
+	I've decided to switch all of these over to double matrices. 
 
 
 */
@@ -33,9 +33,6 @@ using namespace std;
 
 void KineticHamiltonian(double *, int **, char);
 void PotentialHamiltonian(double *, int **, char);
-void StateInit(int **);
-void StateCopy(int *, int *, int);
-int StateId(int **, int *);
 
 extern void StateEvoWithTime();
 extern void MomDen(cdouble *, cdouble *);
@@ -70,65 +67,30 @@ int tstep;	// step size
 
 /*** Function Definitions ***/
 
-// State Initi - constructs an idenity matrix of size Nsite * Nsite
-void StateInit(int ** F, int Nsite) {
-	for(int a=0; a<Nsite; a++) {
-		for(int b=0; b<Nsite; b++) {
-			if(a==b) {
-				F[a][b] = 1;
-			}
-			else {
-				F[a][b] = 0;
-			}
-		}
-	}
-}
-// Initializes N*N matrix B by copying A to B
-void StateCopy(int ** A, int ** B, int Nsite) {
-	for(int i=0; i<Nsite; i++) {
-		B[i]=A[i];
-	}
-}
-
-// assigns a state's ID and returns it. This ID becomes the state's column index in the hamiltonian
-int StateId(int ** F, int * temp) {
-	bool Flag;
-	int ID;
-	for(ID=0; ID<Nsite; ID++) {
-		Flag=true;
-		for(int i=0; i<Nsite; i++) {
-			if(F[ID*Nsite+i]!=temp[i]) {
-				Flag=false;
-				break;
-			}
-		}
-		if(Flag) break;
-	}
-	return ID;
-}
-
 
 // Generates the Kinetic Portion of the Hamiltonian
 // 
-void KineticHamiltonian(double * H, int * F, char Flag) {
+void KineticHamiltonian(double ** H, int ** F, char Flag) {
 
 	int * temp;
-	temp=(int *)malloc(Nsite*sizeof(int));
 	int i;
        	int j;
 	double A;	// sign flag
 
+	temp=(int *)malloc(Nsite*sizeof(int));
+
+
 	// fill H with zeros
 	for(int a=0; a<Nsite; a++) {
 		for(int b=0; b<Nsite; b++) {
-			H[a*Nsite+b]=0;
+			H[a][b]=0;
 		}
 	}
 
 	// Note that the Kinetic Hamiltonian only has off-diagonal elements
 	for(j=0; j<Nsite; j++) {
 		for(int k=0; k<Nsite-1; k++) {
-// WORK HERE	
-	}
+			
+		}
 		
 }
