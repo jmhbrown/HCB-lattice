@@ -5,22 +5,23 @@
 
 using namespace std;
 
-void StateInit(int ** F, int Nsite) {
+void StateInit(int ** F, int Nsite, int diagon, int offdia) {
 	for(int a=0; a<Nsite; a++) {
 		for(int b=0; b<Nsite; b++) {
 			if(a==b) {
-				F[a][b]=1;
+				F[a][b]=diagon;
 			}
 			else {
-				F[a][b]=4;
+				F[a][b]=offdia;
 			}
 		}
 	}
 }
 
+// Copies Matrix B to Matrix A
 void StateCopy(int ** A, int ** B, int Nsite) {
 	for(int i=0; i<Nsite; i++) {
-		for(int j=0; j<Nsite; i++) {
+		for(int j=0; j<Nsite; j++) {
 		A[i][j]=B[i][j];
 		}
 	}
@@ -42,19 +43,23 @@ int main() {
 	       *(F+i)=(int *)malloc(Nsite*sizeof(int));
 	}
 
-	StateInit(F, Nsite);
-//	StateCopy(F, N, Nsite);
+	StateInit(F, Nsite,1,0);
+	StateInit(N, Nsite,0,2);
+	StateCopy(F, N, Nsite);
 
 	ofstream outfile;
 	outfile.open("output.txt");
-//	outfile << "\tN:\n";
-//	for(int k = 0; k < Nsite; k++) {
-//		for(int l = 0; l < Nsite; l++) {
-//			outfile << N[k][l];
-//		}
-//		outfile << "\n";
-//	}
 
+	// print N
+	outfile << "\tN:\n";
+	for(int k = 0; k < Nsite; k++) {
+		for(int l = 0; l < Nsite; l++) {
+			outfile << N[k][l];
+		}
+		outfile << "\n";
+	}
+
+	// print F
 	outfile << "\n\n\n\tF:\n";
 	for(int k = 0; k < Nsite; k++) {
 		for(int l = 0; l < Nsite; l++) {
