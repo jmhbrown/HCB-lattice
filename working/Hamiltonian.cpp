@@ -89,8 +89,11 @@ void KineticHamiltonian(double ** H, int ** F, char Flag) {
 
 	// Note that the Kinetic Hamiltonian only has off-diagonal elements
 	for(j=0; j<Nsite; j++) {
+		StateCopy(F, temp, j); // copies jth row of F to temp	
 		for(int k=0; k<Nsite-1; k++) {
-			
+		if((F[j][k]+F[j][k+1])==1) {
+			temp[k+1]=F[j][k];
+			temp[k]=F[j][k+1];
 		}
 		
 }

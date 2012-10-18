@@ -8,11 +8,18 @@ using namespace std;
 
 int main() {
 	double * H;
-	int ** F;
-	int *temp;
+	int * F;
+	int * temp;
 	int Nsite = 5;
 	int i;
-	
+
+	// Memory allocation
+	temp=(int *)malloc(Nsite*sizeof(int));
+	H=(double *)malloc(Nsite*sizeof(double));
+	F=(int *)malloc(Nsite*sizeof(int));
+
+
+	// initialize F and temp as identity matrix and unit vector
 	StateInit(F, Nsite);
 	VectorInit(temp, Nsite, 3);
 
@@ -35,6 +42,41 @@ int main() {
 			}
 		}
 	}
+
+	ofstream outfile;
+	outfile.open("output.txt");
+
+	// print matrix F
+	outfile << "\tF:\n";
+	for(int k = 0; k < Nsite; k++) {
+		for(int j = 0; j < Nsite; j++) {
+			outfile << F[k][j];
+		}
+		outfile << "\n";
+	}
+
+	// print matrix H
+	outfile << "\tH:\n";
+	for(int k = 0; k < Nsite; k++) {
+		for(int j = 0; j < Nsite; j++) {
+			outfile << H[k*Nsite+j];
+		}
+		outfile << "\n";
+	}
+
+	// print temp
+	outfile<<"\n\ttemp: \n";
+	for(int j = 0; j < Nsite; j++) {
+		outfile << temp[j];
+	}
+
+
+
+	// free memory	
+	FreeIntArray(F, Nsite);
+	free(H);
+	free(temp);
+	
 
 	return 0;
 }
