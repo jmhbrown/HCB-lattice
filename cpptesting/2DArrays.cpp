@@ -8,7 +8,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <iostream>
-#include "StateID.h"
+#include "MatrixUtils.h"
 
 using namespace std;
 
@@ -28,6 +28,10 @@ int main () {
 
 	StateInit(N, Nsite);
 	VectorInit(temp, Nsite, 2);
+	
+	N[1][1]=2;
+	N[2][1]=3;
+	N[3][1]=4;
 
 	ofstream outfile;
 	outfile.open("output.txt");
@@ -35,11 +39,13 @@ int main () {
 	// print matrix N
 	outfile << "\tN:\n";
 	for(int k = 0; k < Nsite; k++) {
-		for(int l = 0; l < Nsite; l++) {
-			outfile << N[k][l];
+		for(int j = 0; j < Nsite; j++) {
+			outfile << N[k][j];
 		}
 		outfile << "\n";
 	}
+
+
 	// print temp
 	outfile<<"\n\ttemp: \n";
 	for(int j = 0; j < Nsite; j++) {
@@ -47,10 +53,7 @@ int main () {
 	}
 
 	// free memory	
+	FreeIntArray(N, Nsite);
 	free(temp);
-	for(int j = 0; j < Nsite; j++) {
-		free(N[j]);
-	}
-	free(N);
 }
 

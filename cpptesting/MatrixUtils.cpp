@@ -1,17 +1,23 @@
-// Determines and return's "temp"'s ID.
-// This allows us to index the states (columns) of our matrix.
-
-using namespace std;
-
-#ifndef __StateID_H
-
-#define __StateID_H
+// File: MatrixUtils.cpp
+// Some utilities for playing with 2D arrays
+//
 
 #include <vector>
 #include <stdlib.h>
 #include <fstream>
+#include <iostream>
 
-// Given a vector and a matrix, returns the matrix row number which the vector matches.
+using namespace std;
+
+// Copies "row" from matrix A to 1D array B. 
+// Both are length Nsite
+void StateCopy(int ** A, int * B, int row) {
+	int Nsite = sizeof(B)/sizeof(int);
+	for(int i=0; i<Nsite; i++) {
+		B[i]=A[row][i];
+	}
+}
+
 int StateId(int ** F, int * temp, int Nsite) {
 	bool Flag;
 	int ID;
@@ -28,8 +34,7 @@ int StateId(int ** F, int * temp, int Nsite) {
 	return ID;
 }
 
-
-// Makes an Nsite*Nsite identity matrix (2Darray with [width][height] = [Nsite][Nsite]
+// makes an idenity matrix
 void StateInit(int ** F, int Nsite) {
 	for(int a=0; a<Nsite; a++) {
 		for(int b=0; b<Nsite; b++) {
@@ -43,7 +48,6 @@ void StateInit(int ** F, int Nsite) {
 	}
 }
 
-// Makes a row vector (an array) of lenth Nsite with zeros everywhere but loc
 void VectorInit(int * temp, int Nsite, int loc) {
 	for(int a = 0; a<Nsite; a++) {
 		if(a!=loc) {
@@ -56,4 +60,9 @@ void VectorInit(int * temp, int Nsite, int loc) {
 }
 
 
-#endif
+void FreeIntArray(int ** M, int Nsite) {
+	for(int a = 0; a<Nsite; a++) {
+		free(M[a]);
+	}
+	free(M);
+}
