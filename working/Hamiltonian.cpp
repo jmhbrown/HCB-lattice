@@ -9,7 +9,7 @@ Author: 	Jennifer Brown
 
 
 NOTES: Kai used a combination of double and single arrays to describe matrices.
-	I've decided to switch all of these over to double matrices. 
+	I've decided to switch all of these over to 1D arrays, ecausethat's what Lapack works with. 
 
 
 */
@@ -70,11 +70,11 @@ int tstep;	// step size
 
 // Generates the Kinetic Portion of the Hamiltonian
 // 
-void KineticHamiltonian(double ** H, int ** F, char Flag) {
+void KineticHamiltonian(double * H, int * F, char Flag) {
 
 	int * temp;
 	int i;
-       	int j;
+	int j;
 	double A;	// sign flag
 
 	temp=(int *)malloc(Nsite*sizeof(int));
@@ -83,7 +83,7 @@ void KineticHamiltonian(double ** H, int ** F, char Flag) {
 	// fill H with zeros
 	for(int a=0; a<Nsite; a++) {
 		for(int b=0; b<Nsite; b++) {
-			H[a][b]=0;
+			H[a*Nsite+b]=0;
 		}
 	}
 
@@ -91,9 +91,19 @@ void KineticHamiltonian(double ** H, int ** F, char Flag) {
 	for(j=0; j<Nsite; j++) {
 		StateCopy(F, temp, j); // copies jth row of F to temp	
 		for(int k=0; k<Nsite-1; k++) {
-		if((F[j][k]+F[j][k+1])==1) {
-			temp[k+1]=F[j][k];
-			temp[k]=F[j][k+1];
+			if((F[j*Nsite+k]+F[j*Nsite+k+1])==1) {
+				temp[k+1]=F[j*Nsite+k];
+				temp[k]=F[j*Nsite+k+1];
+			}
 		}
-		
+	if(Flag=='P') {
+		A = -1.0;
+		if(Nfermion%2==0) { // anti-periodic case for an even number of particles.
+			A = 1.0;
+		}
+		StateCopy(F,temp, Nsite);
+// I'm not sure that all my uses of StateCopy agree on the formats it accepts. 
+// It may be best to write two versions, one for copying full matrices and
+// one for copying vectors from matrices. Look into this.
+	}
 }
