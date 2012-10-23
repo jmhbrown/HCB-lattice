@@ -15,23 +15,20 @@ using namespace std;
 
 int main () {
 	int * temp;
-	int ** N;
+	int * N;
 	int Nsite = 6;
 
 	// Memory allocation
 	temp=(int *)malloc(Nsite*sizeof(int *));
-	N=(int **)malloc(Nsite*sizeof(int *));
-	for(int i = 0; i < Nsite; i++) {
-	       *(N+i)=(int *)malloc(Nsite*sizeof(int));
-	}
+	N=(int *)malloc(Nsite*Nsite*sizeof(int *));
 
 
 	StateInit(N, Nsite);
 	VectorInit(temp, Nsite, 2);
 	
-	N[1][1]=2;
-	N[2][1]=3;
-	N[3][1]=4;
+	N[1*Nsite+1]=2;
+	N[2*Nsite+1]=3;
+	N[3*Nsite+1]=4;
 
 	ofstream outfile;
 	outfile.open("output.txt");
@@ -40,7 +37,7 @@ int main () {
 	outfile << "\tN:\n";
 	for(int k = 0; k < Nsite; k++) {
 		for(int j = 0; j < Nsite; j++) {
-			outfile << N[k][j];
+			outfile << N[k*Nsite+j];
 		}
 		outfile << "\n";
 	}
@@ -52,8 +49,8 @@ int main () {
 		outfile << temp[j];
 	}
 
-	// free memory	
-	FreeIntArray(N, Nsite);
+	// free memory
+	free(N);	
 	free(temp);
 }
 

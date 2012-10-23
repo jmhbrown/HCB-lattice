@@ -10,7 +10,7 @@ Author: 	Jennifer Brown
 
 NOTES: Kai used a combination of double and single arrays to describe matrices.
 	I've decided to switch all of these over to 1D arrays, ecausethat's what Lapack works with. 
-
+	I've also decided to switch all functions over to BLAS and LAPACK's built in ones.
 
 */
 
