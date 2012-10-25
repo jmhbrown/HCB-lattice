@@ -35,8 +35,8 @@ extern int Nbzone;	// number of Brillouin zones
 extern int K;		//specific momemtum basis K
 
 // 1D single-fermion Hamiltonian (size: Nsite x Nsite) used to store eigenstates
-extern double * Ham0;	// initial hamiltonian, with trap centered
-extern double * HamT; 	// after the onset of trap displacement
+extern double * HamP;	// Hamiltonian due to trapping potential 
+extern double * HamT; 	// Hamiltonian due to hopping potential
 
 extern double * EnergT;	//Energy level/eigenvalues of HamT
 

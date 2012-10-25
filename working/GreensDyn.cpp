@@ -9,8 +9,8 @@ using namespace std;
 
 
 cdouble TwoPntGreen(int, int);
-cdouble FourPntGreen(int, int, int, int);
-
+void TwoPntGreenMx(cdouble *);
+ 
 /***Function definitions***/
 
 

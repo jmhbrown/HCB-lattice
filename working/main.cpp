@@ -1,4 +1,4 @@
-#include "stdafxDynKatie.h"
+#include "stdafxDyn.h"
 #include "MyMPI.h"
 #include "cdouble.h"
 #include "NoiseCorrelationTrapDyn.h"
