@@ -6,7 +6,6 @@
 using namespace std;
 
 extern void TwoPntGreenMx(cdouble *);
-extern cdouble FourPntGreen(int, int, int, int);
 cdouble MomDistFunc(int, cdouble *);
 void DenMx(cdouble *);
 void MomCorr2(cdouble *, cdouble *);
@@ -271,7 +270,7 @@ void NoiseCorr(cdouble * nk, cdouble * corr_2, cdouble * noise) //noise(k, k'), 
 	free(nk_nq);
 }
 
-/***********************************************************End******************************************************************/
+/***************************End********************************/
 
 
 
